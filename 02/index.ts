@@ -23,14 +23,14 @@ const extractCommandsFromLines = (lines: string[])=> {
 }
 
 const calcSubPosition = (commands: Command[]) => {
-    return commands.reduce((previousValue, currentValue) => {
-        if (currentValue.direction === "forward")
-            return {...previousValue, distance: previousValue.distance + currentValue.amount}
-        if (currentValue.direction === "up")
-            return {...previousValue, depth: previousValue.depth - currentValue.amount}
-        if (currentValue.direction === "down")
-            return {...previousValue, depth: previousValue.depth + currentValue.amount}
-        return previousValue
+    return commands.reduce((subPosition, currentCommand) => {
+        if (currentCommand.direction === "forward")
+            return {...subPosition, distance: subPosition.distance + currentCommand.amount}
+        if (currentCommand.direction === "up")
+            return {...subPosition, depth: subPosition.depth - currentCommand.amount}
+        if (currentCommand.direction === "down")
+            return {...subPosition, depth: subPosition.depth + currentCommand.amount}
+        return subPosition
     }, {depth: 0, distance: 0})
 }
 
@@ -49,14 +49,14 @@ task1()
 //  Task 2 code
 
 function calcSubPositionWithAim(commands: Command[]) {
-    return commands.reduce((previousValue, currentValue) => {
-        if (currentValue.direction === "forward")
-            return {...previousValue, distance: previousValue.distance + currentValue.amount, depth: previousValue.depth + currentValue.amount * previousValue.aim}
-        if (currentValue.direction === "up")
-            return {...previousValue, aim: previousValue.aim - currentValue.amount}
-        if (currentValue.direction === "down")
-            return {...previousValue, aim: previousValue.aim + currentValue.amount}
-        return previousValue
+    return commands.reduce((subPosition, currentCommand) => {
+        if (currentCommand.direction === "forward")
+            return {...subPosition, distance: subPosition.distance + currentCommand.amount, depth: subPosition.depth + currentCommand.amount * subPosition.aim}
+        if (currentCommand.direction === "up")
+            return {...subPosition, aim: subPosition.aim - currentCommand.amount}
+        if (currentCommand.direction === "down")
+            return {...subPosition, aim: subPosition.aim + currentCommand.amount}
+        return subPosition
     }, {depth: 0, distance: 0, aim: 0})
 }
 

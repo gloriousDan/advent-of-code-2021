@@ -42,7 +42,7 @@ const task1 = () => {
     console.log(`The solution for task 1 is: ${gammaRate * epsilonRate}, gamma rate: ${gammaRate}, epsilon rate: ${epsilonRate}`)
 }
 
-//task1()
+task1()
 
 //  Task 2 code
 
@@ -60,7 +60,6 @@ function calcO2andCO2(bits: number[][]) {
 
 function splitNumbers(bits: number[][], index: number): number[][][]{
     const winningNumbers = decideWinningNumber(bits).map(string => parseInt(string))
-    console.log("bit length", bits.length)
     const bins = bits.reduce((aggregate:{o2: number[][], co2: number[][]}, newval) => {
         //console.log(aggregate.o2.length, aggregate.co2.length)
         if (newval[index] === winningNumbers[index])
@@ -69,9 +68,7 @@ function splitNumbers(bits: number[][], index: number): number[][][]{
             return {...aggregate, co2: [...aggregate.co2, newval]}
     },{o2: [], co2: []})
     return [bins.o2, bins.co2].map((bin, i) => {
-        console.log(`bin: ${bin.length}, index: ${index}, i: ${i}`)
         if (bin.length <= 1) return bin
-        console.log("did not return")
         return splitNumbers(bin, index + 1)[i]
     })
     //return {o2: splitNumbers(bins.o2,  index + 1), co2: splitNumbers(bins.co2, index + 1) }
